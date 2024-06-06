@@ -582,6 +582,8 @@ class Conductor:
 
         """
 
+        LOGGER.info("INBOUND: " + json.dumps(message.payload))
+
         if message.receipt.direct_response_requested and not can_respond:
             LOGGER.warning(
                 "Direct response requested, but not supported by transport: %s",
@@ -662,6 +664,9 @@ class Conductor:
             outbound: An outbound message to be sent
             inbound: The inbound message that produced this response, if available
         """
+
+        LOGGER.info("OUTBOUND: " + outbound.payload)
+
         status: OutboundSendStatus = await self._outbound_message_router(
             profile=profile, outbound=outbound, inbound=inbound
         )
